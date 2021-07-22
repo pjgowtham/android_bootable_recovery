@@ -316,7 +316,7 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
 	if (FindEntry(Zip, update_binary_name, &update_binary_entry) == 0) {
 		LOGINFO("Update binary zip\n");
 		// Additionally verify the compatibility of the package.
-		if (!verify_package_compatibility(Zip)) {
+		if (DataManager::GetIntValue(TW_SKIP_COMPATIBILITY) == 0 && !verify_package_compatibility(Zip)) {
 			gui_err("zip_compatible_err=Zip Treble compatibility error!");
 			CloseArchive(Zip);
 			ret_val = INSTALL_CORRUPT;
